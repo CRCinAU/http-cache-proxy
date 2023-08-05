@@ -19,7 +19,7 @@ chown apache:apache /var/www/html/fedora/linux /var/log/httpd/mirror_log
 
 Add the following to your apache configuration and change the SetEnv lines to suit your environment.
 ```
-	ScriptAlias /fedora/ "/var/www/html/fedora/"
+	ScriptAlias /fedora "/var/www/html/fedora/index.pl"
 	<Directory /var/www/html/fedora>
 		SetEnv	mirror_base	"http://mirror.aarnet.edu.au/pub/fedora/"
 		SetEnv	local_base	"http://your.server.name/fedora/"
@@ -27,9 +27,5 @@ Add the following to your apache configuration and change the SetEnv lines to su
 		SetEnv	logfile		"/var/log/httpd/mirror_log"
 
 		AddHandler cgi-script .pl
-		RewriteEngine On
-		RewriteBase /fedora/
-		RewriteRule ^index\.pl$ - [L]
-		RewriteRule . /fedora/index.pl [L]
 	</Directory>
 ```
