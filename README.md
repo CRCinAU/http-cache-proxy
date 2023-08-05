@@ -17,19 +17,15 @@ touch /var/log/httpd/mirror_log
 chown apache:apache /var/www/html/fedora/linux /var/log/httpd/mirror_log
 ```
 
-Change the configuration options in the top of `index.pl`:
-```
-## Configuration goes here:
-my $mirror_base = "http://mirror.aarnet.edu.au/pub/fedora/";	## Base URL to map to
-my $local_base = "https://your.web.server/fedora/";		## Where the URL on your server syncs up
-my $cache_path = "/var/www/html/fedora/";			## Where to save the actual files. The web server will need write access to this directory.
-my $logfile = "/var/log/httpd/mirror_log";			## Where to log mirror details
-```
-
-Add the following to your apache configuration:
+Add the following to your apache configuration and change the SetEnv lines to suit your environment.
 ```
 	ScriptAlias /fedora/ "/var/www/html/fedora/"
 	<Directory /var/www/html/fedora>
+		SetEnv	mirror_base	"http://mirror.aarnet.edu.au/pub/fedora/"
+		SetEnv	local_base	"http://your.server.name/fedora/"
+		SetEnv	cache_path	"/var/www/html/fedora/"
+		SetEnv	logfile		"/var/log/httpd/mirror_log"
+
 		AddHandler cgi-script .pl
 		RewriteEngine On
 		RewriteBase /fedora/

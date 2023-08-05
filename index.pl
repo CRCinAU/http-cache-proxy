@@ -6,11 +6,11 @@ use File::Path qw(make_path);
 use File::Basename;
 $|++;
 
-## Configuration goes here:
-my $mirror_base = "http://mirror.aarnet.edu.au/pub/fedora/";	## Base URL to map to - change this to your local mirror
-my $local_base = "https://your.web.server/fedora/";		## Where the URL on your server syncs up
-my $cache_path = "/var/www/html/fedora/";			## Where to save the actual files. The web server will need write access to this directory.
-my $logfile = "/var/log/httpd/mirror_log";			## Where to log mirror details
+## Import configuration from apache environment...
+my $mirror_base = $ENV{"mirror_base"};
+my $local_base = $ENV{"local_base"};
+my $cache_path = $ENV{"cache_path"};
+my $logfile = $ENV{"logfile"};
 
 ## Translate the local path to the remote path.
 my $url = $ENV{"REQUEST_SCHEME"} . "://" . $ENV{"SERVER_NAME"} . $ENV{"REQUEST_URI"};
