@@ -4,8 +4,6 @@ use warnings;
 use LWP::UserAgent;
 use File::Path qw(make_path);
 use File::Basename;
-use Data::Dumper;
-$Data::Dumper::Sortkeys = 1;
 $|++;
 
 ## Configuration goes here:
